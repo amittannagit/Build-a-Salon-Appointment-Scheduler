@@ -14,7 +14,8 @@ This project is a simple command-line salon appointment scheduling system. It us
 ## Prerequisites
 - PostgreSQL
 - Bash shell
-   ...
+...
+
 ## Setup
 1. Create the salon database:
    ```
