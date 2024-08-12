@@ -1,73 +1,106 @@
-```markdown
 # Salon Appointment Scheduler
 
-## Description
-This project is a simple command-line salon appointment scheduling system. It uses a PostgreSQL database to store customer information, services offered, and appointments. The system allows users to select a service, enter their phone number, and schedule an appointment.
+Welcome to the **Salon Appointment Scheduler** project! This project involves creating a PostgreSQL database for managing customer appointments in a salon. You'll also develop a Bash script that interacts with the database to schedule appointments based on user input.
 
-## Features
-- Display a list of available services
-- Add new customers to the database
-- Schedule appointments for existing and new customers
-- Validate user inputs
-- Provide confirmation of scheduled appointments
+## Project Structure
 
-## Prerequisites
-- PostgreSQL
-- Bash shell
-...
+1. **Create the Database**
+   - Start by creating a database named `salon`.
+   - Define the necessary tables (`customers`, `appointments`, and `services`) with appropriate columns and constraints.
 
-## Setup
-1. Create the salon database:
-   ```
-   psql --username=freecodecamp --dbname=postgres -c "CREATE DATABASE salon;"
-   ```
+2. **Develop the Bash Script**
+   - Create a Bash script named `salon.sh` that will interact with the database to manage appointments.
+   - The script will prompt users to select a service, enter their phone number, name, and appointment time.
 
-2. Connect to the salon database and create the necessary tables:
-   ```
-   psql --username=freecodecamp --dbname=salon
-   ```
-   Then run the SQL commands to create tables (customers, services, appointments) and insert initial services data.
+3. **Version Control**
+   - Use Git for version control, ensuring you commit your work with clear and descriptive messages.
 
-3. Make the script executable:
-   ```
-   chmod +x salon.sh
-   ```
+## Getting Started
+
+### Prerequisites
+
+- PostgreSQL installed and running on your system.
+- Git installed and configured.
+- Basic knowledge of SQL and Bash scripting.
+
+### Instructions
+
+1. **Connect to PostgreSQL**
+   - Start by connecting to the PostgreSQL server:
+     ```bash
+     psql --username=freecodecamp --dbname=postgres
+     ```
+   - Create a new database named `salon`:
+     ```sql
+     CREATE DATABASE salon;
+     ```
+
+2. **Create Tables**
+   - Connect to the `salon` database:
+     ```bash
+     psql --username=freecodecamp --dbname=salon
+     ```
+   - Create the necessary tables:
+     - `customers` table with columns: `customer_id`, `phone`, and `name`.
+     - `services` table with columns: `service_id` and `name`.
+     - `appointments` table with columns: `appointment_id`, `customer_id`, `service_id`, and `time`.
+   - Ensure primary keys auto-increment and that foreign keys are correctly set up.
+
+3. **Develop the Script**
+   - Create a script file named `salon.sh` in the project folder:
+     ```bash
+     touch salon.sh
+     ```
+   - Make sure the script is executable:
+     ```bash
+     chmod +x salon.sh
+     ```
+   - The script should:
+     - Display a numbered list of services.
+     - Prompt users to enter a service ID, phone number, name (if not already a customer), and appointment time.
+     - Add new customers to the `customers` table if they are not already present.
+     - Schedule an appointment by adding a new entry to the `appointments` table.
+     - Output a confirmation message after successfully scheduling an appointment.
+
+4. **Database Backup**
+   - To save your database, create a dump:
+     ```bash
+     pg_dump -cC --inserts -U freecodecamp salon > salon.sql
+     ```
+   - This dump file can be used to restore the database later:
+     ```bash
+     psql -U postgres < salon.sql
+     ```
 
 ## Usage
-Run the script from the command line:
-```
-./salon.sh
-```
 
-Follow the prompts to schedule an appointment:
-1. Select a service from the list
-2. Enter your phone number
-3. If you're a new customer, enter your name
-4. Enter the desired appointment time
+- Running the script without any arguments should prompt the user to select a service and enter the necessary information to schedule an appointment.
+  
+- Example interaction:
+  ```
+  Welcome to My Salon, how can I help you today?
+  1) cut
+  2) color
+  3) perm
+  Please select a service by entering the corresponding number: 1
+  Please enter your phone number: 555-555-5555
+  I don't have a record for that phone number, what's your name? Fabio
+  What time would you like your cut, Fabio? 10:30
+  I have put you down for a cut at 10:30, Fabio.
+  ```
 
-## File Structure
-- `salon.sh`: The main Bash script for the appointment scheduler
-- `salon.sql`: SQL file containing database schema and initial data (if you choose to create one)
+## Notes
 
-## Database Schema
-- `customers`: Stores customer information (id, name, phone)
-- `services`: Stores available services (id, name)
-- `appointments`: Stores appointment details (id, customer_id, service_id, time)
+- Ensure that your script finishes running after completing tasks, or tests won't pass.
+- The script should not use the `clear` command or other commands that might erase the output.
+- The tests may add data to your database, feel free to delete any test data.
 
-## Maintenance
-To backup your database, you can use:
-```
-pg_dump -cC --inserts -U freecodecamp salon > salon.sql
-```
+## Completion
 
-To restore from a backup:
-```
-psql -U postgres < salon.sql
-```
-
-## Contributing
-This project is for educational purposes. Feel free to fork and modify for your own learning.
+- Make sure all tasks are complete, your database is backed up, and your script is functioning correctly.
+- Commit all changes to Git with clear and descriptive messages.
+- Submit the URL to your public repository on freeCodeCamp.org.
 
 ## License
-This project is open source and available under the [MIT License](LICENSE).
-```
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
